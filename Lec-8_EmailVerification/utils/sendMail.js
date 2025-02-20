@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendMail = (ElementInternals, subject, message) => {
+const sendMail = (email, subject, message) => {
     const transporter = nodemailer.createTransport({
         service: "gmail",
         port: 587,
@@ -16,10 +16,10 @@ const sendMail = (ElementInternals, subject, message) => {
         // send mail with defined transport object
         const info = await transporter.sendMail({
             from: "vs1234676@gmail.com", // sender address
-            to: "vs1234676@gmail.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
-            html: "<b>Hello world?</b>", // html body
+            to: email, // list of receivers
+            subject: subject, // Subject line
+            text: "Please click the link to verify your email", // plain text body
+            html: `<a href=${message}>Link</a>`, // html body
         });
 
         console.log("Message sent: %s", info.messageId);
@@ -29,4 +29,4 @@ const sendMail = (ElementInternals, subject, message) => {
     main().catch(console.error);
 };
 
-module.exports.sendMail - sendMail;
+module.exports = sendMail;
